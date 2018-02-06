@@ -99,6 +99,7 @@ $app->group('/admin',
         $this->get('/discount/add', AdminController::class . ':adddiscount')->add($optionalAuth)->setName('admin.adddiscount');
         $this->post('/discount', AdminController::class . ':postdiscount')->add($optionalAuth)->setName('admin.postdiscount');
         $this->put('/discount', AdminController::class . ':putdiscount')->add($optionalAuth)->setName('admin.putdiscount');
+        $this->delete('/discount', AdminController::class . ':deletediscount')->add($optionalAuth)->setName('admin.deletediscount');
         $this->get('/discount/edit/{id}', AdminController::class . ':editdiscount')->add($optionalAuth)->setName('admin.editdiscount');
     });
 

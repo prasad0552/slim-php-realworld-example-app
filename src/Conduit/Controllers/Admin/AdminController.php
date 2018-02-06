@@ -282,5 +282,40 @@ class AdminController
             ->write(json_encode($result));
     }
 
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function deletediscount(Request $request, Response $response, array $args)
+    {
+
+        $_DELETE = $request->getParams();
+
+        $gstatus = 'false';
+        $gmessage = 'Failed to delete Discount';
+        $resp  = "";
+        if(isset($_DELETE['id']) && trim($_DELETE['id'])!='') {
+            $sql = "DELETE from promo  where id= '" .trim($_DELETE['id'])."' ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $gstatus = 'true';
+            $gmessage = 'Promotion deleted Successfully';
+        }
+        $result = array(
+            "status" => $gstatus,
+            "message" => $gmessage,
+            "resp" => $_DELETE
+        );
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($result));
+    }
+
 
 }
