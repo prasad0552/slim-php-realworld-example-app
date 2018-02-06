@@ -6,7 +6,7 @@
  * Time: 10:38 AM
  */
 
-use Illuminate\Support\Optional;
+use Conduit\Support\Optional;
 
 if (! function_exists('optional')) {
     /**
