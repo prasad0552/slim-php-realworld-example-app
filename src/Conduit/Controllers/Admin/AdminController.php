@@ -39,6 +39,7 @@ class AdminController
         $this->validator = $container->get('validator');
         $this->db = $container->get('db');
         $this->view = $container->get('view');
+        $this->pdo = $container->get('pdo');
     }
 
     /**
@@ -90,6 +91,117 @@ class AdminController
         return $this->view->render($response, 'adddiscount.html.twig', [
             'name' => $args['name']
         ]);
+    }
+
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function postdiscount(Request $request, Response $response, array $args)
+    {
+        if (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0) {
+            $_POST = json_decode(file_get_contents("php://input"), true);
+        }
+        $gstatus = 'false';
+        $gmessage = 'Failed to add Discount';
+        $missings = array();
+        if(isset($_POST['name']))
+        {
+            $_POST['name'] = trim($_POST['name']);
+        }
+        else
+        {
+            $missings[] = 'name';
+        }
+        if(isset($_POST['start_date']) && $_POST['start_date']!='')
+        {
+            $_POST['start_date'] = trim($_POST['start_date']);
+        }
+        else
+        {
+            $missings[] = 'start_date';
+        }
+        if(isset($_POST['end_date']) && $_POST['end_date']!='')
+        {
+            $_POST['end_date'] = trim($_POST['end_date']);
+        }
+        else
+        {
+            $missings[] = 'end_date';
+        }
+        if(isset($_POST['type']) && $_POST['type']!='')
+        {
+            $_POST['type'] = trim($_POST['type']);
+        }
+        else
+        {
+            $missings[] = 'type';
+        }
+        if(isset($_POST['percent_off']) )
+        {
+            $_POST['percent_off'] = trim($_POST['percent_off']);
+        }
+        else
+        {
+            $missings[] = 'percent_off';
+        }
+        if(isset($_POST['fixed_off']) )
+        {
+            $_POST['fixed_off'] = trim($_POST['fixed_off']);
+        }
+        else
+        {
+            $missings[] = 'fixed_off';
+        }
+        if(isset($_POST['description']))
+        {
+            $_POST['description'] = trim($_POST['description']);
+        }
+        else
+        {
+            $missings[] = 'description';
+        }
+        $invalid = array();
+        if(empty($missings))
+        {
+            list($mm,$dd,$yyyy) = explode('/',$_POST['start_date']);
+            if (!checkdate($mm,$dd,$yyyy)) {
+                $invalid[] = 'start_date';
+            }
+            list($mm,$dd,$yyyy) = explode('/',$_POST['end_date']);
+            if (!checkdate($mm,$dd,$yyyy)) {
+                $invalid[] = 'end_date';
+            }
+            if($_POST['fixed_off']=='' && $_POST['percent_off']=='')
+            {
+                $invalid[] = 'fixed_off';
+                $invalid[] = 'percent_off';
+            }
+            if(!empty($invalid))
+            {
+                
+            }
+
+        }
+        $stmt = $this->pdo->prepare('SELECT * FROM articles ');
+        $stmt->execute();
+        $resultss = [];
+        $resultss = $stmt->fetchAll();
+        $result = array(
+            "status" => $gstatus,
+            "message" => $gmessage,
+            'missings' => $missings,
+            'invalid' => $invalid
+        );
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($result));
     }
 
 
