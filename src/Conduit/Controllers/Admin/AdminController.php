@@ -107,6 +107,8 @@ class AdminController
         if (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0) {
             $_POST = json_decode(file_get_contents("php://input"), true);
         }
+        $gstatus = 'false';
+        $gmessage = 'Failed to add Discount';
         $missings = array();
         if(isset($_POST['name']))
         {
@@ -164,11 +166,37 @@ class AdminController
         {
             $missings[] = 'description';
         }
+        $invalid = array();
+        if(empty($missings))
+        {
+            list($mm,$dd,$yyyy) = explode('/',$_POST['start_date']);
+            if (!checkdate($mm,$dd,$yyyy)) {
+                $invalid[] = 'start_date';
+            }
+            list($mm,$dd,$yyyy) = explode('/',$_POST['end_date']);
+            if (!checkdate($mm,$dd,$yyyy)) {
+                $invalid[] = 'end_date';
+            }
+            if($_POST['fixed_off']=='' && $_POST['percent_off']=='')
+            {
+                $invalid[] = 'fixed_off';
+                $invalid[] = 'percent_off';
+            }
+            if(!empty($invalid))
+            {
+                
+            }
 
+        }
+        $stmt = $this->pdo->prepare('SELECT * FROM articles ');
+        $stmt->execute();
+        $resultss = [];
+        $resultss = $stmt->fetchAll();
         $result = array(
-            "status" => "false",
-            "message" => "Failed to add Discount",
-            'missings' => $missings
+            "status" => $gstatus,
+            "message" => $gmessage,
+            'missings' => $missings,
+            'invalid' => $invalid
         );
 
         return $response->withStatus(200)
