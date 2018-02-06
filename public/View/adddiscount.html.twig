@@ -19,17 +19,17 @@
 
             </div>
 
-            <form class="pure-form pure-form-aligned">
+            <form class="pure-form pure-form-aligned" method="post" id="promotion_data">
                 <fieldset>
                     <div class="pure-control-group">
                         <label for="promotion_name">Promotion Name</label>
-                        <input id="promotion_name" type="text" placeholder="promotion name">
+                        <input id="promotion_name" name="name" type="text" placeholder="promotion name">
                         <!--<span class="pure-form-message-inline">This is a required field.</span>-->
                     </div>
 
                     <div class="pure-control-group">
                         <label for="promotion_type">Promotion Type</label>
-                        <select id="promotion_type">
+                        <select id="promotion_type" name="type">
                             <option>Select</option>
                             <option value="fixed_amount">Amount Discount</option>
                             <option value="percentage_discount">Percentage Discount</option>
@@ -37,29 +37,29 @@
                     </div>
                     <div class="pure-control-group" id="percent_field" style="display:none;">
                         <label for="percent">Percent</label>
-                        <input id="percent" type="text" >
+                        <input id="percent" type="text" name="percent_off">
                     </div>
                     <div class="pure-control-group" id="amount_field" style="display:none;">
                         <label for="amont">Amount</label>
-                        <input id="amount" type="text" >
+                        <input id="amount" type="text" name="fixed_off">
                     </div>
                     <div class="pure-control-group">
                         <label for="promotion_start_date">Start Date</label>
-                        <input id="promotion_start_date" type="text" >
+                        <input id="promotion_start_date" type="text" name="start_date">
                     </div>
 
                     <div class="pure-control-group">
                         <label for="promotion_end_date">End Date</label>
-                        <input id="promotion_end_date" type="text" >
+                        <input id="promotion_end_date" type="text" name="end_date" >
                     </div>
 
                     <div class="pure-control-group">
                         <label for="aligned-email">Description</label>
-                        <textarea rows="4" cols="50" id="aligned-email">
+                        <textarea rows="4" cols="50" id="aligned-email" name="description">
                         </textarea>
                     </div>
 
-                    <div class="pure-controls"><button type="submit" class="pure-button pure-button-primary">Submit</button></div>
+                    <div class="pure-controls"><input  type="button" id="promotion_data" class="pure-button pure-button-primary" value="Submit"/></div>
                 </fieldset>
             </form>
     </div>
