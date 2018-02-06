@@ -1,0 +1,56 @@
+
+{% extends 'layout.html.twig' %}
+{% block body %}
+    <div id="main">
+        <div class="header">
+            <h1>Add Discount</h1>
+
+        </div>
+        <div class="content" >
+            <div class="pure-g" style="margin-bottom: 20px !important; margin-top: 20px!important;">
+                <div class="pure-u-1-5"> &nbsp;</div>
+                <div class="pure-u-1-5"> &nbsp;</div>
+                <div class="pure-u-1-5"> &nbsp;</div>
+                <div class="pure-u-1-5"> &nbsp;</div>
+
+                <div class="pure-u-1-5">
+                    <a class="pure-button" href="{{ base_url()~'/'~'admin/discounts' }}" > Go to Discounts</a>
+                </div>
+
+            </div>
+
+            <form class="pure-form pure-form-aligned">
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="aligned-name">Username</label>
+                        <input id="aligned-name" type="text" placeholder="Username">
+                        <span class="pure-form-message-inline">This is a required field.</span>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="aligned-password">Password</label>
+                        <input id="aligned-password" type="password" placeholder="Password">
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="aligned-email">Email Address</label>
+                        <input id="aligned-email" type="email" placeholder="Email Address">
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="aligned-foo">Supercalifragilistic Label</label>
+                        <input id="aligned-foo" type="text" placeholder="Enter something here...">
+                    </div>
+
+                    <div class="pure-controls">
+                        <label for="aligned-cb" class="pure-checkbox">
+                            <input id="aligned-cb" type="checkbox"> I've read the terms and conditions
+                        </label>
+
+                        <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+    </div>
+    </div>
+{% endblock %}
