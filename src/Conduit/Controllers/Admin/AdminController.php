@@ -244,11 +244,37 @@ class AdminController
      */
     public function putdiscount(Request $request, Response $response, array $args)
     {
+
+        $_PUT = $request->getParams();
+
         $gstatus = 'false';
-        $gmessage = 'Failed to add Discount';
+        $gmessage = 'Failed to update Discount';
+        $resp  = "";
+        if(isset($_PUT['id']) && trim($_PUT['id'])!='') {
+            if (isset($_PUT['onlyenable']) && $_PUT['onlyenable'] == 'yes') {
+                $sth = $this->pdo->prepare("SELECT * FROM promo where id= '" .trim($_PUT['id'])."' ");
+                $sth->execute();
+                $res = $sth->fetch();
+                if(!empty($res))
+                {
+                    $newenb = 0;
+                    if($res['enabled']==0)
+                    {
+                        $newenb = 1;
+                    }
+                    $resp = $newenb;
+                    $sql = "UPDATE promo SET enabled=$newenb where id= '" .trim($_PUT['id'])."' ";
+                    $stmt = $this->pdo->prepare($sql);
+                    $stmt->execute();
+                    $gmessage = $stmt->rowCount() . " records UPDATED successfully";
+                    $gstatus = 'true';
+                }
+            }
+        }
         $result = array(
             "status" => $gstatus,
-            "message" => $gmessage
+            "message" => $gmessage,
+            "resp" => $resp
         );
 
         return $response->withStatus(200)
