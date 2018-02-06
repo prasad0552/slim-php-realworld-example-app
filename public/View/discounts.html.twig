@@ -36,12 +36,12 @@
                 <tr id="discount-{{ discount.id }}">
 
                     <td>{{ discount.name }}</td>
-                    <td>{{ discount.type }}</td>
+                    <td>{{ discount.type|upper }}</td>
                     <td>{{ discount.start_date|date("m/d/Y") }}</td>
                     <td>{{ discount.end_date|date("m/d/Y") }}</td>
                     <td>
                         <div class="pure-button-group" role="group" aria-label="...">
-                            <a class="pure-button apply-discount" data-id="{{ discount.id }}" data-enabled="{{ discount.enabled }}" title="Apply Discount">{% if discount.enabled==0 %}<i class="fa fa-ban"></i>{% else %}<i class="fa fa-check"></i>{% endif %}</a>
+                            <a class="pure-button apply-discount {% if discount.enabled==1 %}button-success{% else %}button-warning{% endif %}" data-id="{{ discount.id }}" data-enabled="{{ discount.enabled }}" title="Apply Discount">{% if discount.enabled==0 %}<i class="fa fa-ban"></i>{% else %}<i class="fa fa-check"></i>{% endif %}</a>
                             <a class="pure-button edit-discount" data-id="{{ discount.id }}" title="Edit Discount"><i class="fa fa-edit"></i></a>
                             <a class="pure-button delete-discount" data-id="{{ discount.id }}" title="Delete Discount"><i class="fa fa-trash"></i></a>
 
