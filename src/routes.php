@@ -83,6 +83,12 @@ $app->group('/api',
                 'tags' => Tag::all('title')->pluck('title'),
             ]);
         });
+
+        //Promotions Route
+        $this->get('/promotion/sales',
+            \Conduit\Controllers\Promotions\SaleController::class . ':index')
+            ->add($optionalAuth)
+            ->setName('promotion.sales.index');
     });
 
 

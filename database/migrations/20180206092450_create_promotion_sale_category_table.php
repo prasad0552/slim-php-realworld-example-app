@@ -26,7 +26,7 @@ class CreatePromotionSaleCategoryTable extends BaseMigration
     
     public function down()
     {
-        //
+        $this->schema->drop('promotion_sale_category_relation');
     }
 
 }

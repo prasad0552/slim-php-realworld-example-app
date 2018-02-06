@@ -5,7 +5,6 @@ use Phinx\Migration\AbstractMigration;
 
 class CreatePromotionSaleTable extends BaseMigration
 {
-
     public function up()
     {
         $this->schema->create('promotion_sale', function (Blueprint $table) {
@@ -28,5 +27,4 @@ class CreatePromotionSaleTable extends BaseMigration
     {
         $this->schema->drop('promotion_sales');
     }
-
 }
