@@ -31,6 +31,14 @@
                         <label for="promotion_type">Promotion Type</label>
                         <select id="promotion_type" name="type">
                             <option>Select</option>
+                            <option value="coupon">Coupon</option>
+                            <option value="basket">Basket</option>
+                        </select>
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="promo_id">Promo</label>
+                        <select id="promo_id" name="promo">
+                            <option>Select</option>
                             <option value="fixed_amount">Amount Discount</option>
                             <option value="percentage_discount">Percentage Discount</option>
                         </select>
@@ -57,6 +65,14 @@
                         <label for="aligned-email">Description</label>
                         <textarea rows="4" cols="50" id="aligned-email" name="description">
                         </textarea>
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="free_shipping">Free shipping</label>
+                        <select id="free_shipping" name="free_shipping">
+                            <option>Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
                     </div>
 
                     <div class="pure-controls"><input  type="button" id="promotion_data_btn" class="pure-button pure-button-primary" value="Submit"/></div>
