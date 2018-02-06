@@ -24,3 +24,4 @@ Thumbs.db
 !/logs/README.md
 public/tests
 /composer.json
+/composer.lock
