@@ -8,6 +8,7 @@ use Conduit\Controllers\Auth\RegisterController;
 use Conduit\Controllers\User\ProfileController;
 use Conduit\Controllers\User\UserController;
 use Conduit\Controllers\Admin\AdminController;
+use Conduit\Controllers\Discounts\GetDiscountController;
 use Conduit\Middleware\OptionalAuth;
 use Conduit\Models\Tag;
 use Slim\Http\Request;
@@ -50,6 +51,7 @@ $app->group('/api',
             ArticleController::class . ':destroy')->add($jwtMiddleware)->setName('article.destroy');
         $this->post('/articles', ArticleController::class . ':store')->add($jwtMiddleware)->setName('article.store');
         $this->get('/articles', ArticleController::class . ':index')->add($optionalAuth)->setName('article.index');
+        $this->post('/getDiscount', GetDiscountController::class . ':index')->add($optionalAuth)->setName('getDiscount.index');
 
         // Comments
         $this->get('/articles/{slug}/comments',
