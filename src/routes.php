@@ -98,6 +98,8 @@ $app->group('/admin',
         $this->get('/discounts', AdminController::class . ':discounts')->add($optionalAuth)->setName('admin.discounts');
         $this->get('/discount/add', AdminController::class . ':adddiscount')->add($optionalAuth)->setName('admin.adddiscount');
         $this->post('/discount', AdminController::class . ':postdiscount')->add($optionalAuth)->setName('admin.postdiscount');
+        $this->put('/discount', AdminController::class . ':putdiscount')->add($optionalAuth)->setName('admin.putdiscount');
+        $this->get('/discount/edit/{id}', AdminController::class . ':editdiscount')->add($optionalAuth)->setName('admin.editdiscount');
     });
 
 

@@ -104,6 +104,23 @@ class AdminController
      *
      * @return \Slim\Http\Response
      */
+    public function editdiscount(Request $request, Response $response, array $args)
+    {
+        // TODO Extract the logic of filtering articles to its own class
+        return $this->view->render($response, 'editdiscount.html.twig', [
+            'id' => $args['id']
+        ]);
+    }
+
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
     public function postdiscount(Request $request, Response $response, array $args)
     {
         if (stripos($_SERVER["CONTENT_TYPE"], "application/json") === 0) {
@@ -209,6 +226,29 @@ class AdminController
             "message" => $gmessage,
             'missings' => $missings,
             'invalid' => $invalid
+        );
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($result));
+    }
+
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function putdiscount(Request $request, Response $response, array $args)
+    {
+        $gstatus = 'false';
+        $gmessage = 'Failed to add Discount';
+        $result = array(
+            "status" => $gstatus,
+            "message" => $gmessage
         );
 
         return $response->withStatus(200)
