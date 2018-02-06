@@ -182,16 +182,26 @@ class AdminController
                 $invalid[] = 'fixed_off';
                 $invalid[] = 'percent_off';
             }
-            if(!empty($invalid))
+            if(empty($invalid))
             {
-                
+
+                $statement = $this->pdo->prepare("INSERT INTO promo(name, start_date, end_date, type, fixed_off, percent_off, description)
+                                    VALUES(:name, :start_date, :end_date, :type, :fixed_off, :percent_off, :description)");
+                $statement->execute(array(
+                    "name" => $_POST['name'],
+                    "start_date" => date('Y-m-d H:i:s', strtotime($_POST['start_date'])),
+                    "end_date" => date('Y-m-d H:i:s', strtotime($_POST['end_date'])),
+                    "type" => $_POST['type'],
+                    "fixed_off" => $_POST['fixed_off'],
+                    "percent_off" => $_POST['percent_off'],
+                    "description" => $_POST['description']
+                ));
+                $gstatus = 'true';
+                $gmessage = 'Discount added successfully';
             }
 
         }
-        $stmt = $this->pdo->prepare('SELECT * FROM articles ');
-        $stmt->execute();
-        $resultss = [];
-        $resultss = $stmt->fetchAll();
+
         $result = array(
             "status" => $gstatus,
             "message" => $gmessage,
