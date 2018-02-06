@@ -75,5 +75,22 @@ class AdminController
         ]);
     }
 
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function adddiscount(Request $request, Response $response, array $args)
+    {
+        // TODO Extract the logic of filtering articles to its own class
+        return $this->view->render($response, 'adddiscount.html.twig', [
+            'name' => $args['name']
+        ]);
+    }
+
 
 }
