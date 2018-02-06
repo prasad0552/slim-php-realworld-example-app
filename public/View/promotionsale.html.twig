@@ -1,0 +1,57 @@
+
+{% extends 'layout.html.twig' %}
+{% block body %}
+    <div id="main">
+        <div class="header">
+            <h1>Discounts</h1>
+
+        </div>
+        <div class="content" >
+            <div class="pure-g" style="margin-bottom: 20px !important; margin-top: 20px!important;">
+                <div class="pure-u-1-5"> &nbsp;</div>
+                <div class="pure-u-1-5"> &nbsp;</div>
+                <div class="pure-u-1-5"> &nbsp;</div>
+                <div class="pure-u-1-5"> &nbsp;</div>
+
+                <div class="pure-u-1-5">
+                    <a class="pure-button" href="{{ base_url()~'/'~'admin/discount/add' }}" >+ Add Discount</a>
+                </div>
+
+            </div>
+
+            <table class="pure-table pure-table-horizontal" >
+                <thead>
+                <tr>
+
+                    <th>Discount Name</th>
+                    <th>Discount type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for discount in discounts %}
+                <tr id="discount-{{ discount.id }}">
+
+                    <td>{{ discount.name }}</td>
+                    <td>{{ discount.discountType }}</td>
+                    <td>{{ discount.dateFrom|date("m/d/Y") }}</td>
+                    <td>{{ discount.dateEnd|date("m/d/Y") }}</td>
+                    <td>
+                        <div class="pure-button-group" role="group" aria-label="...">
+                            <a class="pure-button apply-discount" data-id="{{ discount.id }}" title="Apply Discount">{% if discount.enabled==0 %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-ban"></i>{% endif %}</a>
+                            <a class="pure-button edit-discount" data-id="{{ discount.id }}" title="Edit Discount"><i class="fa fa-edit"></i></a>
+                            <a class="pure-button delete-discount" data-id="{{ discount.id }}" title="Delete Discount"><i class="fa fa-trash"></i></a>
+
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+    </div>
+    </div>
+{% endblock %}

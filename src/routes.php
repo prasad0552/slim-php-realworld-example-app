@@ -83,6 +83,12 @@ $app->group('/api',
                 'tags' => Tag::all('title')->pluck('title'),
             ]);
         });
+
+        //Promotions Route
+        $this->get('/promotion/sales',
+            \Conduit\Controllers\Promotions\SaleController::class . ':index')
+            ->add($optionalAuth)
+            ->setName('promotion.sales.index');
     });
 
 
@@ -101,6 +107,12 @@ $app->group('/admin',
         $this->put('/discount', AdminController::class . ':putdiscount')->add($optionalAuth)->setName('admin.putdiscount');
         $this->delete('/discount', AdminController::class . ':deletediscount')->add($optionalAuth)->setName('admin.deletediscount');
         $this->get('/discount/edit/{id}', AdminController::class . ':editdiscount')->add($optionalAuth)->setName('admin.editdiscount');
+
+        //Promotions Route
+        $this->get('/promotion/sales',
+            \Conduit\Controllers\Promotions\SaleController::class . ':lists')
+            ->add($optionalAuth)
+            ->setName('promotion.sales.index');
     });
 
 
