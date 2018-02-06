@@ -29,9 +29,9 @@
         "phpunit/phpunit": "^6.4"
     },
     "autoload": {
-      "psr-4": {
-          "Conduit\\": "src/Conduit"
-      }
+        "psr-4": {
+            "Conduit\\": "src/Conduit"
+        }
     },
     "autoload-dev": {
         "classmap": ["database/"],
