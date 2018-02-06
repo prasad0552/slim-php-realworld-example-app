@@ -95,7 +95,7 @@ $app->group('/admin',
         $this->get('/dashboard', AdminController::class . ':index')->add($optionalAuth)->setName('admin.index');
         $this->get('/discounts', AdminController::class . ':discounts')->add($optionalAuth)->setName('admin.discounts');
         $this->get('/discount/add', AdminController::class . ':adddiscount')->add($optionalAuth)->setName('admin.adddiscount');
-
+        $this->post('/discount', AdminController::class . ':postdiscount')->add($optionalAuth)->setName('admin.postdiscount');
     });
 
 
