@@ -14,11 +14,15 @@ $(document).ready(function(){
                 {
                     if(data.resp==0)
                     {
-                        dis.html('<i class="fa fa-ban"></i>')
+                        dis.html('<i class="fa fa-ban"></i>');
+                        dis.removeClass('button-success');
+                        dis.addClass('button-warning');
                     }
                     else
                     {
-                        dis.html('<i class="fa fa-check"></i>')
+                        dis.html('<i class="fa fa-check"></i>');
+                        dis.removeClass('button-warning');
+                        dis.addClass('button-success');
                     }
                 }
             }
