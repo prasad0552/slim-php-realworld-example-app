@@ -7,6 +7,7 @@ use Conduit\Controllers\Auth\LoginController;
 use Conduit\Controllers\Auth\RegisterController;
 use Conduit\Controllers\User\ProfileController;
 use Conduit\Controllers\User\UserController;
+use Conduit\Controllers\Admin\AdminController;
 use Conduit\Middleware\OptionalAuth;
 use Conduit\Models\Tag;
 use Slim\Http\Request;
@@ -80,6 +81,21 @@ $app->group('/api',
                 'tags' => Tag::all('title')->pluck('title'),
             ]);
         });
+    });
+
+
+// Admin Routes
+$app->group('/admin',
+    function () {
+        $jwtMiddleware = $this->getContainer()->get('jwt');
+        $optionalAuth = $this->getContainer()->get('optionalAuth');
+        /** @var \Slim\App $this */
+
+
+        $this->get('/dashboard', AdminController::class . ':index')->add($optionalAuth)->setName('admin.index');
+        $this->get('/discounts', AdminController::class . ':discounts')->add($optionalAuth)->setName('admin.discounts');
+
+
     });
 
 

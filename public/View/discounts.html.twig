@@ -1,0 +1,42 @@
+
+{% extends 'layout.html.twig' %}
+{% block body %}
+    <div id="main">
+        <div class="header">
+            <h1>Discounts</h1>
+
+        </div>
+        <div class="content" >
+            <table class="pure-table pure-table-bordered" style="margin-top: 30px !important;">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Discount Name</th>
+                    <th>Discount type</th>
+                    <th>Desc.</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for i in 1..5 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>Buy x Get Discount</td>
+                    <td>buy_x_get_discount</td>
+                    <td>Buy x Get Discount</td>
+                    <td>
+                        <div class="pure-button-group" role="group" aria-label="...">
+                            <button class="pure-button">Edit</button>
+                            <button class="pure-button">Delete</button>
+                            <button class="pure-button pure-button-active">Apply</button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+    </div>
+    </div>
+{% endblock %}

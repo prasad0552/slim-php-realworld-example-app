@@ -25,3 +25,4 @@ Thumbs.db
 public/tests
 /composer.json
 /composer.lock
+/composer.phar
