@@ -161,6 +161,22 @@ class AdminController
         {
             $missings[] = 'type';
         }
+        if(isset($_POST['promo']) && $_POST['promo']!='')
+        {
+            $_POST['promo'] = trim($_POST['promo']);
+        }
+        else
+        {
+            $missings[] = 'promo';
+        }
+        if(isset($_POST['free_shipping']) && $_POST['free_shipping']!='')
+        {
+            $_POST['free_shipping'] = trim($_POST['free_shipping']);
+        }
+        else
+        {
+            $missings[] = 'free_shipping';
+        }
         if(isset($_POST['percent_off']) )
         {
             $_POST['percent_off'] = trim($_POST['percent_off']);
@@ -204,8 +220,8 @@ class AdminController
             if(empty($invalid))
             {
 
-                $statement = $this->pdo->prepare("INSERT INTO promo(name, start_date, end_date, type, fixed_off, percent_off, description)
-                                    VALUES(:name, :start_date, :end_date, :type, :fixed_off, :percent_off, :description)");
+                $statement = $this->pdo->prepare("INSERT INTO promo(name, start_date, end_date, type, fixed_off, percent_off, description, promo, free_shipping)
+                                    VALUES(:name, :start_date, :end_date, :type, :fixed_off, :percent_off, :description, :promo, :free_shipping)");
                 $statement->execute(array(
                     "name" => $_POST['name'],
                     "start_date" => date('Y-m-d H:i:s', strtotime($_POST['start_date'])),
@@ -213,7 +229,9 @@ class AdminController
                     "type" => $_POST['type'],
                     "fixed_off" => $_POST['fixed_off'],
                     "percent_off" => $_POST['percent_off'],
-                    "description" => $_POST['description']
+                    "description" => $_POST['description'],
+                    "promo" => $_POST['promo'],
+                    "free_shipping" => $_POST['free_shipping']
                 ));
                 $gstatus = 'true';
                 $gmessage = 'Discount added successfully';
