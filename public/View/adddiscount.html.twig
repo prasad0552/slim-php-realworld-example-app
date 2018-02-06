@@ -22,33 +22,44 @@
             <form class="pure-form pure-form-aligned">
                 <fieldset>
                     <div class="pure-control-group">
-                        <label for="aligned-name">Username</label>
-                        <input id="aligned-name" type="text" placeholder="Username">
-                        <span class="pure-form-message-inline">This is a required field.</span>
+                        <label for="promotion_name">Promotion Name</label>
+                        <input id="promotion_name" type="text" placeholder="promotion name">
+                        <!--<span class="pure-form-message-inline">This is a required field.</span>-->
                     </div>
 
                     <div class="pure-control-group">
-                        <label for="aligned-password">Password</label>
-                        <input id="aligned-password" type="password" placeholder="Password">
+                        <label for="promotion_type">Promotion Type</label>
+                        <select id="promotion_type">
+                            <option>Select</option>
+                            <option value="fixed_amount">Amount Discount</option>
+                            <option value="percentage_discount">Percentage Discount</option>
+                        </select>
+                    </div>
+                    <div class="pure-control-group" id="percent_field" style="display:none;">
+                        <label for="percent">Percent</label>
+                        <input id="percent" type="text" >
+                    </div>
+                    <div class="pure-control-group" id="amount_field" style="display:none;">
+                        <label for="amont">Amount</label>
+                        <input id="amount" type="text" >
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="promotion_start_date">Start Date</label>
+                        <input id="promotion_start_date" type="text" >
                     </div>
 
                     <div class="pure-control-group">
-                        <label for="aligned-email">Email Address</label>
-                        <input id="aligned-email" type="email" placeholder="Email Address">
+                        <label for="promotion_end_date">End Date</label>
+                        <input id="promotion_end_date" type="text" >
                     </div>
 
                     <div class="pure-control-group">
-                        <label for="aligned-foo">Supercalifragilistic Label</label>
-                        <input id="aligned-foo" type="text" placeholder="Enter something here...">
+                        <label for="aligned-email">Description</label>
+                        <textarea rows="4" cols="50" id="aligned-email">
+                        </textarea>
                     </div>
 
-                    <div class="pure-controls">
-                        <label for="aligned-cb" class="pure-checkbox">
-                            <input id="aligned-cb" type="checkbox"> I've read the terms and conditions
-                        </label>
-
-                        <button type="submit" class="pure-button pure-button-primary">Submit</button>
-                    </div>
+                    <div class="pure-controls"><button type="submit" class="pure-button pure-button-primary">Submit</button></div>
                 </fieldset>
             </form>
     </div>
