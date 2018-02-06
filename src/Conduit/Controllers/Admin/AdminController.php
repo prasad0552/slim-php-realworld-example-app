@@ -161,6 +161,22 @@ class AdminController
         {
             $missings[] = 'type';
         }
+        if(isset($_POST['promo']) && $_POST['promo']!='')
+        {
+            $_POST['promo'] = trim($_POST['promo']);
+        }
+        else
+        {
+            $missings[] = 'promo';
+        }
+        if(isset($_POST['free_shipping']) && $_POST['free_shipping']!='')
+        {
+            $_POST['free_shipping'] = trim($_POST['free_shipping']);
+        }
+        else
+        {
+            $missings[] = 'free_shipping';
+        }
         if(isset($_POST['percent_off']) )
         {
             $_POST['percent_off'] = trim($_POST['percent_off']);
@@ -204,8 +220,8 @@ class AdminController
             if(empty($invalid))
             {
 
-                $statement = $this->pdo->prepare("INSERT INTO promo(name, start_date, end_date, type, fixed_off, percent_off, description)
-                                    VALUES(:name, :start_date, :end_date, :type, :fixed_off, :percent_off, :description)");
+                $statement = $this->pdo->prepare("INSERT INTO promo(name, start_date, end_date, type, fixed_off, percent_off, description, promo, free_shipping)
+                                    VALUES(:name, :start_date, :end_date, :type, :fixed_off, :percent_off, :description, :promo, :free_shipping)");
                 $statement->execute(array(
                     "name" => $_POST['name'],
                     "start_date" => date('Y-m-d H:i:s', strtotime($_POST['start_date'])),
@@ -213,7 +229,9 @@ class AdminController
                     "type" => $_POST['type'],
                     "fixed_off" => $_POST['fixed_off'],
                     "percent_off" => $_POST['percent_off'],
-                    "description" => $_POST['description']
+                    "description" => $_POST['description'],
+                    "promo" => $_POST['promo'],
+                    "free_shipping" => $_POST['free_shipping']
                 ));
                 $gstatus = 'true';
                 $gmessage = 'Discount added successfully';
@@ -244,11 +262,72 @@ class AdminController
      */
     public function putdiscount(Request $request, Response $response, array $args)
     {
+
+        $_PUT = $request->getParams();
+
         $gstatus = 'false';
-        $gmessage = 'Failed to add Discount';
+        $gmessage = 'Failed to update Discount';
+        $resp  = "";
+        if(isset($_PUT['id']) && trim($_PUT['id'])!='') {
+            if (isset($_PUT['onlyenable']) && $_PUT['onlyenable'] == 'yes') {
+                $sth = $this->pdo->prepare("SELECT * FROM promo where id= '" .trim($_PUT['id'])."' ");
+                $sth->execute();
+                $res = $sth->fetch();
+                if(!empty($res))
+                {
+                    $newenb = 0;
+                    if($res['enabled']==0)
+                    {
+                        $newenb = 1;
+                    }
+                    $resp = $newenb;
+                    $sql = "UPDATE promo SET enabled=$newenb where id= '" .trim($_PUT['id'])."' ";
+                    $stmt = $this->pdo->prepare($sql);
+                    $stmt->execute();
+                    $gmessage = $stmt->rowCount() . " records UPDATED successfully";
+                    $gstatus = 'true';
+                }
+            }
+        }
         $result = array(
             "status" => $gstatus,
-            "message" => $gmessage
+            "message" => $gmessage,
+            "resp" => $resp
+        );
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($result));
+    }
+
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function deletediscount(Request $request, Response $response, array $args)
+    {
+
+        $_DELETE = $request->getParams();
+
+        $gstatus = 'false';
+        $gmessage = 'Failed to delete Discount';
+        $resp  = "";
+        if(isset($_DELETE['id']) && trim($_DELETE['id'])!='') {
+            $sql = "DELETE from promo  where id= '" .trim($_DELETE['id'])."' ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $gstatus = 'true';
+            $gmessage = 'Promotion deleted Successfully';
+        }
+        $result = array(
+            "status" => $gstatus,
+            "message" => $gmessage,
+            "resp" => $_DELETE
         );
 
         return $response->withStatus(200)

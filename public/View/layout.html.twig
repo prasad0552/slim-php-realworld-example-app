@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ base_url() }}/css/layouts/side-menu.css">
     <link rel="stylesheet" href="{{ base_url() }}/css/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 </head>
 <body>
 <script type="application/javascript">
@@ -26,8 +27,7 @@
             <a class="pure-menu-heading" href="{{ base_url()~'/'~'admin/dashboard' }}">JD India</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="{{ base_url()~'/'~'admin/discounts' }}" class="pure-menu-link">Discounts</a></li>
-                <li class="pure-menu-item"><a href="{{ base_url()~'/'~'admin/promotions' }}" class="pure-menu-link">Promotions</a></li>
+                <li class="pure-menu-item"><a href="{{ base_url()~'/'~'admin/discounts' }}" class="pure-menu-link">Promotions</a></li>
 
 
             </ul>
@@ -39,13 +39,47 @@
 </div>
 
 <style>
+    .success-lbl{
+        color: rgb(28, 184, 65);
+    }
+    .error-lbl{
+        color: rgb(202, 60, 60) !important;
+    }
     .pure-form-message-inline{
         color: rgb(202, 60, 60) !important;
+    }
+    .pure-table-horizontal{
+        font-size: 12px !important;
+    }
+    .button-success,
+    .button-error,
+    .button-warning,
+    .button-secondary {
+        color: white;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-success {
+        background: rgb(28, 184, 65); /* this is a green */
+    }
+
+    .button-error {
+        background: rgb(202, 60, 60); /* this is a maroon */
+    }
+
+    .button-warning {
+        background: rgb(223, 117, 20); /* this is an orange */
+    }
+
+    .button-secondary {
+        background: rgb(66, 184, 221); /* this is a light blue */
     }
 </style>
 <script src="{{ base_url() }}/js/ui.js"></script>
 <script src="{{ base_url() }}/js/jquery-3.3.1.min.js"></script>
 <script src="{{ base_url() }}/js/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="{{ base_url() }}/js/app.js"></script>
 <script src="{{ base_url() }}/js/add_promotion.js"></script>
 </body>

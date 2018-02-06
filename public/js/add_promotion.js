@@ -3,9 +3,11 @@ $(document).ready(function(){
 
     var baseUrl = document.location.origin;
 
-    $( "#promotion_start_date,#promotion_end_date" ).datepicker();
+    $( "#promotion_start_date,#promotion_end_date" ).datepicker({
+        changeYear: true
+    });
 
-    $('#promotion_type').change(function(){
+    $('#promo_id').change(function(){
         val=$(this).val();
         if(val=="fixed_amount")
         {
