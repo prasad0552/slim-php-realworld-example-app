@@ -53,7 +53,7 @@ class AdminController
      */
     public function index(Request $request, Response $response, array $args)
     {
-        // TODO Extract the logic of filtering articles to its own class
+
         return $this->view->render($response, 'dashboard.html.twig', [
             'name' => $args['name']
         ]);
@@ -70,9 +70,11 @@ class AdminController
      */
     public function discounts(Request $request, Response $response, array $args)
     {
-        // TODO Extract the logic of filtering articles to its own class
+        $sth = $this->pdo->prepare("SELECT * FROM promo");
+        $sth->execute();
+        $result = $sth->fetchAll();
         return $this->view->render($response, 'discounts.html.twig', [
-            'name' => $args['name']
+            'discounts' => $result
         ]);
     }
 
