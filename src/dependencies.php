@@ -38,7 +38,7 @@ $container['logger'] = function ($c) {
 
 // Register Twig View helper
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig('View', []);
+    $view = new \Slim\Views\Twig('public/View', []);
 
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');

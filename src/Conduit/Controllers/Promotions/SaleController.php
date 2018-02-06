@@ -8,6 +8,7 @@ use League\Fractal\Resource\Collection;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Interop\Container\ContainerInterface;
+use Slim\Views\Twig;
 
 class SaleController
 {
@@ -19,6 +20,11 @@ class SaleController
     protected $auth;
     /** @var \League\Fractal\Manager */
     protected $fractal;
+
+    /**
+     * @var Twig
+     */
+    protected $view;
 
     /**
      * UserController constructor.
@@ -33,6 +39,7 @@ class SaleController
         $this->fractal = $container->get('fractal');
         $this->validator = $container->get('validator');
         $this->db = $container->get('db');
+        $this->view = $container->get('view');
     }
 
     /**
@@ -66,5 +73,26 @@ class SaleController
             new SaleTransformer($requestUserId)))->toArray();
 
         return $response->withJson(['promotions' => $data['data'], 'promotionsCount' => $promoCount]);
+    }
+
+    public function lists(Request $request, Response $response, array $args)
+    {
+        $requestUserId = optional($requestUser = $this->auth->requestUser($request))->id;
+        $builder = Sale::query()->latest()->limit(20);
+
+        if ($limit = $request->getParam('limit')) {
+            $builder->limit($limit);
+        }
+
+        if ($offset = $request->getParam('offset')) {
+            $builder->offset($offset);
+        }
+
+        $promoCount = $builder->count();
+        $promotions = $builder->get();
+
+        return $this->view->render($response, 'promotionsale.html.twig', [
+            'discounts' => $promotions
+        ]);
     }
 }
