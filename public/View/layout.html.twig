@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ base_url() }}/css/layouts/side-menu.css">
     <link rel="stylesheet" href="{{ base_url() }}/css/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 </head>
 <body>
 <script type="application/javascript">
@@ -38,8 +39,17 @@
 </div>
 
 <style>
+    .success-lbl{
+        color: rgb(28, 184, 65);
+    }
+    .error-lbl{
+        color: rgb(202, 60, 60) !important;
+    }
     .pure-form-message-inline{
         color: rgb(202, 60, 60) !important;
+    }
+    .pure-table-horizontal{
+        font-size: 12px !important;
     }
     .button-success,
     .button-error,
@@ -69,6 +79,7 @@
 <script src="{{ base_url() }}/js/ui.js"></script>
 <script src="{{ base_url() }}/js/jquery-3.3.1.min.js"></script>
 <script src="{{ base_url() }}/js/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="{{ base_url() }}/js/app.js"></script>
 <script src="{{ base_url() }}/js/add_promotion.js"></script>
 </body>
