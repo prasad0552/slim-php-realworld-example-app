@@ -47,6 +47,7 @@ $container['view'] = function ($c) {
     $funn = new Twig_SimpleFunction('cur_uri', function () {
         return "hello world";
     });
+    $view->getEnvironment()->addFunction($funn);
     $funn = new Twig_SimpleFunction('price_satement', function ($percent_off,$fixed_off) {
         if($percent_off!=0)
         {
