@@ -44,7 +44,7 @@ class Auth
      * @internal param string $subjectIdentifier The username of the subject user.
      *
      */
-    public function generateToken(User $user)
+    public function   generateToken(User $user)
     {
         $now = new DateTime();
         $future = new DateTime("now +2 hours");

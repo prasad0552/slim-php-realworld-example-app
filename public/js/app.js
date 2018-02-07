@@ -1,4 +1,55 @@
 $(document).ready(function(){
+
+    // Click event for sign in button
+    $('body').on('click','.login-btn',function(){
+        var $loginForm = $('#login_form');
+        var hasErr = validateForm($loginForm);
+        var username = $loginForm.find('.username').val();
+        var password = $loginForm.find('.password').val();
+        if(!hasErr) {
+            // Making ajax call to validate user and to store user data in session
+            jQuery.ajax({
+                type: "POST",
+                url:  basuri+"/admin/login",
+                data: {username:username, password:password}, // serializes the form's elements.
+                success: function(data) {
+                    console.log(data);
+                    if(data.status === true)
+                    {
+                        if(data.isValid)
+                        {
+                            window.location.href = 'dashboard';
+                        }
+                    } else {
+                            // Display error message above login form
+                        $loginForm.find('.login-err').text(data.message);
+                    }
+                }
+            });
+
+        }
+    });
+
+    /**
+     * This method is to validate the form fields which have req-cntrl class
+     * @param $form
+     */
+    function validateForm($form) {
+        var hasErr = false;
+        var $fields = $form.find('.req-cntrl');
+        for(var i=0; i<$fields.length; i++) {
+            var $currentFld = $($fields[i]);
+            var $reqErr = $currentFld.parent().find('.pure-form-message-inline');
+            if(!$currentFld.val()) {
+                hasErr = true;
+                $reqErr.show();
+            } else {
+                $reqErr.hide();
+            }
+        }
+        return hasErr;
+    }
+
     $('body').on('click','.apply-discount',function(){
         var dtid = $(this).attr('data-id');
         var enabled = $(this).attr('data-enabled');

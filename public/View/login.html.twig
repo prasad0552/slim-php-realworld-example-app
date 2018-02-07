@@ -1,13 +1,36 @@
 
 {% extends 'layout.html.twig' %}
+{% block internalcss %}
+    <style>
+        .required-err {
+            display: none;
+        }
+    </style>
+{% endblock %}
 {% block body %}
     <div id="main">
         <div class="header">
-            <h1>Dashboard</h1>
+            <h1>Login</h1>
 
         </div>
         <div class="content">
-
+            <form class="pure-form pure-form-aligned" method="post" id="login_form">
+                <div class="login-err"></div>
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="username">Username</label>
+                        <input id="username" name="username" type="text" class="req-cntrl username" placeholder="Username" required>
+                        <span class="pure-form-message-inline required-err">This is a required field.</span>
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" class="req-cntrl password" placeholder="Password" required>
+                        <span class="pure-form-message-inline required-err">This is a required field.</span>
+                    </div>
+                    <div class="pure-controls"><input  type="button" id="login_btn" class="pure-button pure-button-primary login-btn" value="Login"/></div>
+                </fieldset>
+            </form>
+        </div>
     </div>
     </div>
 {% endblock %}
