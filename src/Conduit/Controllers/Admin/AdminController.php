@@ -51,6 +51,23 @@ class AdminController
      *
      * @return \Slim\Http\Response
      */
+    public function login(Request $request, Response $response, array $args)
+    {
+
+        return $this->view->render($response, 'login.html.twig', [
+            'name' => $args['name']
+        ]);
+    }
+
+    /**
+     * Return List of Admin
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
     public function index(Request $request, Response $response, array $args)
     {
 
