@@ -1,9 +1,12 @@
 
 {% extends 'layout.html.twig' %}
+{% block internalcss %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+{% endblock %}
 {% block body %}
     <div id="main">
         <div class="header">
-            <h1>Promotions</h1>
+            <h1>Promotions </h1>
 
         </div>
         <div class="content" >
@@ -19,7 +22,7 @@
 
             </div>
 
-            <table class="pure-table pure-table-horizontal" >
+            <table class="pure-table pure-table-horizontal" id="promo-data-table">
                 <thead>
                 <tr>
 
@@ -58,4 +61,12 @@
             </table>
     </div>
     </div>
+{% endblock %}
+{% block internaljs %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function(){
+            $('#promo-data-table').DataTable();
+        });
+    </script>
 {% endblock %}

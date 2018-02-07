@@ -44,6 +44,15 @@ $container['view'] = function ($c) {
     $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $basePath));
 
+    $funn = new Twig_SimpleFunction('cur_uri', function () {
+        return "hello world";
+    });
+    $view->getEnvironment()->addGlobal("current_path", $c["request"]->getUri()->getPath());
+    $view->getEnvironment()->addFunction($funn);
+
+
+
+
     return $view;
 };
 

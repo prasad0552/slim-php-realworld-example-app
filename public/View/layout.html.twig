@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JD India</title>
+    <title>JD India </title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ base_url() }}/css/layouts/side-menu-old-ie.css">
     <link rel="stylesheet" href="{{ base_url() }}/css/layouts/side-menu.css">
     <link rel="stylesheet" href="{{ base_url() }}/css/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+    {% block internalcss %}
+
+    {% endblock %}
 </head>
 <body>
 <script type="application/javascript">
@@ -24,7 +27,7 @@
 
     <div id="menu">
         <div class="pure-menu">
-            <a class="pure-menu-heading" href="{{ base_url()~'/'~'admin/dashboard' }}">JD India</a>
+            <a class="pure-menu-heading" href="{{ base_url()~'/'~'admin/dashboard' }}">JD India </a>
 
             <ul class="pure-menu-list">
                 <li class="pure-menu-item"><a href="{{ base_url()~'/'~'admin/discounts' }}" class="pure-menu-link">Promotions</a></li>
@@ -95,8 +98,15 @@
 <script src="{{ base_url() }}/js/ui.js"></script>
 <script src="{{ base_url() }}/js/jquery-3.3.1.min.js"></script>
 <script src="{{ base_url() }}/js/jquery-ui.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
+
 <script src="{{ base_url() }}/js/app.js"></script>
+
 <script src="{{ base_url() }}/js/add_promotion.js"></script>
+
+{% block internaljs %}
+
+{% endblock %}
 </body>
 </html>
