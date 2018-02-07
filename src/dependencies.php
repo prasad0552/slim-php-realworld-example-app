@@ -47,6 +47,19 @@ $container['view'] = function ($c) {
     $funn = new Twig_SimpleFunction('cur_uri', function () {
         return "hello world";
     });
+    $funn = new Twig_SimpleFunction('price_satement', function ($percent_off,$fixed_off) {
+        if($percent_off!=0)
+        {
+
+            return floatval($percent_off)." % Off";
+        }
+        if($fixed_off!=0)
+        {
+
+            return "&#163; ".floatval($fixed_off)." Off";
+        }
+
+    });
     $view->getEnvironment()->addGlobal("current_path", $c["request"]->getUri()->getPath());
     $view->getEnvironment()->addFunction($funn);
 
@@ -62,6 +75,11 @@ $container['jwt'] = function ($c) {
     $jws_settings = $c->get('settings')['jwt'];
 
     return new \Slim\Middleware\JwtAuthentication($jws_settings);
+};
+
+// Register session globally to app
+$container['session'] = function ($c) {
+    return new \SlimSession\Helper;
 };
 
 $container['optionalAuth'] = function ($c) {
