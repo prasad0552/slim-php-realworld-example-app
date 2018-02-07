@@ -1,4 +1,29 @@
 $(document).ready(function(){
+
+    // Click event for sign in button
+    $('body').on('click','.login-btn',function(){
+        var $loginForm = $('#login_form');
+        validateForm($loginForm);
+
+    });
+
+    /**
+     * This method is to validate the form fields which have req-cntrl class
+     * @param $form
+     */
+    function validateForm($form) {
+        var $fields = $form.find('.req-cntrl');
+        for(var prop in $fields) {
+            var $currentFld = $($fields[prop]);
+            var $reqErr = $currentFld.parent().find('.pure-form-message-inline');
+            if(!$currentFld.val()) {
+                $reqErr.show();
+            } else {
+                $reqErr.hide();
+            }
+        }
+    }
+
     $('body').on('click','.apply-discount',function(){
         var dtid = $(this).attr('data-id');
         var enabled = $(this).attr('data-enabled');
