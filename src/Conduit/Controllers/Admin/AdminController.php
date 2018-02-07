@@ -60,6 +60,41 @@ class AdminController
     }
 
     /**
+     * Triggered after submitting the login form
+     * Validate the user and redirect to Dashboard
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function postlogin(Request $request, Response $response, array $args)
+    {
+        $postData = filter_input(INPUT_POST);
+        $result = [];
+        $isValidUser = true;
+        // Validating inputs
+        if(!$_POST['username']) {
+            $result['status'] = false;
+            $result['message'] = 'Please enter username';
+        } elseif(!$_POST['password']) {
+            $result['status'] = false;
+            $result['message'] = 'Please enter password';
+        } else {
+            // TODO : validate user
+            $result['status'] = true;
+        }
+        $result['isValid'] = $isValidUser;
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($result));
+
+    }
+
+
+    /**
      * Return List of Admin
      *
      * @param \Slim\Http\Request  $request
