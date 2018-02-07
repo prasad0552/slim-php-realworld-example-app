@@ -21,6 +21,7 @@
 
             <form class="pure-form pure-form-aligned" method="post" id="promotion_data">
                 <fieldset>
+                    <legend>Promotion Details:</legend>
                     <div class="pure-control-group">
                         <label for="promotion_name">Promotion Name</label>
                         <input id="promotion_name" name="name" type="text" placeholder="promotion name">
@@ -66,6 +67,9 @@
                         <textarea rows="4" cols="50" id="aligned-email" name="description">
                         </textarea>
                     </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Configuration</legend>
                     <div class="pure-control-group">
                         <label for="exclusive">Exclusive</label>
                         <select id="exclusive" name="exclusive">
@@ -90,9 +94,9 @@
                             <option value="0">No</option>
                         </select>
                     </div>
-
-                    <div class="pure-controls"><input  type="button" id="promotion_data_btn" class="pure-button pure-button-primary" value="Submit"/></div>
                 </fieldset>
+                    <div class="pure-controls"><input  type="button" id="promotion_data_btn" class="pure-button pure-button-primary" value="Submit"/></div>
+
             </form>
     </div>
     </div>
