@@ -1,13 +1,41 @@
 
 {% extends 'layout.html.twig' %}
+{% block internalcss %}
+    <style>
+
+        div.box {
+            position: relative;
+            width: 95%;
+            margin: 10px;
+            height: 185px;
+            background: #9c88ff;
+            -webkit-box-shadow: 0 10px 6px -6px #555;
+            -moz-box-shadow: 0 10px 6px -6px #555;
+            box-shadow: 0 10px 6px -6px #555;
+
+        }
+
+    </style>
+{% endblock %}
 {% block body %}
     <div id="main">
         <div class="header">
             <h1>Dashboard</h1>
 
         </div>
-        <div class="content">
-        {{ cur_uri() }}
-    </div>
+        <div class="pure-g">
+            <div class="pure-u-1-2 ">
+                <div class=" box">
+                    <h3>Hello</h3>
+                </div>
+
+            </div>
+            <div class="pure-u-1-2">
+                <div class=" box" style=" background-color: #fbc531!important;">
+                    <h3>world</h3>
+                </div>
+            </div>
+
+        </div>
     </div>
 {% endblock %}
