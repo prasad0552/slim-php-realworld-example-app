@@ -52,7 +52,7 @@ $app->group('/api',
         $this->post('/articles', ArticleController::class . ':store')->add($jwtMiddleware)->setName('article.store');
         $this->get('/articles', ArticleController::class . ':index')->add($optionalAuth)->setName('article.index');
         $this->post('/getDiscount', GetDiscountController::class . ':index')->add($optionalAuth)->setName('getDiscount.index');
-
+        $this->get('/promos_status', GetDiscountController::class . ':promos_status')->add($optionalAuth)->setName('getDiscount.promos_status');
         // Comments
         $this->get('/articles/{slug}/comments',
             CommentController::class . ':index')
