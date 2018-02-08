@@ -109,6 +109,7 @@ $app->group('/admin',
         $this->get('/discount/edit/{id}', AdminController::class . ':editdiscount')->add($optionalAuth)->setName('admin.editdiscount');
         $this->get('/login', AdminController::class . ':login')->add($optionalAuth)->setName('login.index');
         $this->post('/login', AdminController::class . ':postlogin')->add($optionalAuth)->setName('loginpost.index');
+        $this->post('/logout', AdminController::class . ':logout')->add($optionalAuth)->setName('admin.logout');
         //Promotions Route
         $this->get('/promotion/sales',
             \Conduit\Controllers\Promotions\SaleController::class . ':lists')
