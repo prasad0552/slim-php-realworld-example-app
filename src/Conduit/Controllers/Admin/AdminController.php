@@ -24,6 +24,7 @@ class AdminController
     /** @var \League\Fractal\Manager */
     protected $fractal;
     protected $view;
+    protected $session;
 
     /**
      * UserController constructor.
@@ -40,6 +41,7 @@ class AdminController
         $this->db = $container->get('db');
         $this->view = $container->get('view');
         $this->pdo = $container->get('pdo');
+        $this->session = $container->get('session');
     }
 
     /**
@@ -53,8 +55,13 @@ class AdminController
      */
     public function login(Request $request, Response $response, array $args)
     {
-
-        return $this->view->render($response, 'login.html.twig', [
+        $adminUser = $this->session->get('admin_user');
+        if(!$adminUser) {
+            return $this->view->render($response, 'login.html.twig', [
+                'name' => $args['name']
+            ]);
+        }
+        return $this->view->render($response, 'dashboard.html.twig', [
             'name' => $args['name']
         ]);
     }
@@ -84,6 +91,7 @@ class AdminController
             $result['message'] = 'Please enter password';
         } else {
             // TODO : validate user
+            $this->session->set('admin_user', ['username' => $username]);
             $result['status'] = true;
         }
         $result['isValid'] = $isValidUser;
@@ -92,6 +100,21 @@ class AdminController
             ->withHeader('Content-Type', 'application/json')
             ->write(json_encode($result));
 
+    }
+
+    public function logout(Request $request, Response $response, array $args)
+    {
+        $id = $this->session::id();
+        $result = [];
+        $result['status'] = false;
+        if($id) {
+            $this->session::destroy();
+            $result['status'] = true;
+        }
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode($result));
     }
 
 
@@ -106,7 +129,12 @@ class AdminController
      */
     public function index(Request $request, Response $response, array $args)
     {
-
+        $adminUser = $this->session->get('admin_user');
+        if(!$adminUser) {
+            return $this->view->render($response, 'login.html.twig', [
+                'name' => $args['name']
+            ]);
+        }
         return $this->view->render($response, 'dashboard.html.twig', [
             'name' => $args['name']
         ]);
@@ -123,6 +151,12 @@ class AdminController
      */
     public function discounts(Request $request, Response $response, array $args)
     {
+        $adminUser = $this->session->get('admin_user');
+        if(!$adminUser) {
+            return $this->view->render($response, 'login.html.twig', [
+                'name' => $args['name']
+            ]);
+        }
         $sth = $this->pdo->prepare("SELECT * FROM promo");
         $sth->execute();
         $result = $sth->fetchAll();

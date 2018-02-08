@@ -52,7 +52,7 @@ $app->group('/api',
         $this->post('/articles', ArticleController::class . ':store')->add($jwtMiddleware)->setName('article.store');
         $this->get('/articles', ArticleController::class . ':index')->add($optionalAuth)->setName('article.index');
         $this->post('/getDiscount', GetDiscountController::class . ':index')->add($optionalAuth)->setName('getDiscount.index');
-
+        $this->get('/promos_status', GetDiscountController::class . ':promos_status')->add($optionalAuth)->setName('getDiscount.promos_status');
         // Comments
         $this->get('/articles/{slug}/comments',
             CommentController::class . ':index')
@@ -109,6 +109,7 @@ $app->group('/admin',
         $this->get('/discount/edit/{id}', AdminController::class . ':editdiscount')->add($optionalAuth)->setName('admin.editdiscount');
         $this->get('/login', AdminController::class . ':login')->add($optionalAuth)->setName('login.index');
         $this->post('/login', AdminController::class . ':postlogin')->add($optionalAuth)->setName('loginpost.index');
+        $this->post('/logout', AdminController::class . ':logout')->add($optionalAuth)->setName('admin.logout');
         //Promotions Route
         $this->get('/promotion/sales',
             \Conduit\Controllers\Promotions\SaleController::class . ':lists')
