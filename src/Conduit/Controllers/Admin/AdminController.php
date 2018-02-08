@@ -71,14 +71,15 @@ class AdminController
      */
     public function postlogin(Request $request, Response $response, array $args)
     {
-        $postData = filter_input(INPUT_POST);
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
         $result = [];
         $isValidUser = true;
         // Validating inputs
-        if(!$_POST['username']) {
+        if(!$username) {
             $result['status'] = false;
             $result['message'] = 'Please enter username';
-        } elseif(!$_POST['password']) {
+        } elseif(!$password) {
             $result['status'] = false;
             $result['message'] = 'Please enter password';
         } else {
