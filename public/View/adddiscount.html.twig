@@ -24,14 +24,13 @@
                     <legend>Promotion Details:</legend>
                     <div class="pure-control-group">
                         <label for="promotion_name">Promotion Name</label>
-                        <input id="promotion_name" name="name" type="text" placeholder="promotion name">
-                        <!--<span class="pure-form-message-inline">This is a required field.</span>-->
+                        <input id="promotion_name" name="name" type="text" placeholder="promotion name" >
                     </div>
 
                     <div class="pure-control-group">
                         <label for="promotion_type">Promotion Type</label>
                         <select id="promotion_type" name="type">
-                            <option>Select</option>
+                            <option value="">Select</option>
                             <option value="coupon">Coupon</option>
                             <option value="basket">Basket</option>
                         </select>
@@ -39,7 +38,7 @@
                     <div class="pure-control-group">
                         <label for="promo_id">Promo</label>
                         <select id="promo_id" name="promo">
-                            <option>Select</option>
+                            <option value="">Select</option>
                             <option value="fixed_amount">Amount Discount</option>
                             <option value="percentage_discount">Percentage Discount</option>
                         </select>
@@ -73,21 +72,21 @@
                     <div class="pure-control-group">
                         <label for="exclusive">Exclusive</label>
                         <select id="exclusive" name="exclusive">
-                            <option>Select</option>
+                            <option value="">Select</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
 
                         <label for="channels">Channels</label>
                         <select id="channels" name="channels">
-                            <option>Select</option>
+                            <option value="">Select</option>
                             <option value="jd">JD</option>
                             <option value="millets">Millets</option>
                         </select>
 
                         <label for="free_shipping">Free shipping</label>
                         <select id="free_shipping" name="free_shipping">
-                            <option>Select</option>
+                            <option value="">Select</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
@@ -98,4 +97,7 @@
             </form>
     </div>
     </div>
+{% endblock %}
+{% block internaljs %}
+<script src="{{ base_url() }}/js/add_promotion.js"></script>
 {% endblock %}
