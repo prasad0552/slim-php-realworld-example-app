@@ -2,7 +2,7 @@
 
 namespace Conduit\Controllers\Discounts;
 
-use Conduit\Models\Article;
+use Conduit\Models\Promo;
 use Conduit\Models\Tag;
 use Conduit\Transformers\ArticleTransformer;
 use Interop\Container\ContainerInterface;
@@ -37,6 +37,7 @@ class GetDiscountController
         $this->fractal = $container->get('fractal');
         $this->validator = $container->get('validator');
         $this->db = $container->get('db');
+        $this->pdo = $container->get('pdo');
 
     }
 
@@ -54,50 +55,56 @@ class GetDiscountController
         // TODO Extract the logic of filtering articles to its own class
 
         $requestUserId = optional($requestUser = $this->auth->requestUser($request))->id;
-        $builder = Article::query()->latest()->with(['tags', 'user'])->limit(20);
-        print_r($request);
+        $builder = Promo::query()->latest()->with(['tags', 'user'])->limit(20);
+        $parsedBody = $request->getParsedBody();
+        $ids = implode(',',array_column($parsedBody,'product_id'));
+        $sth = $this->pdo->prepare("SELECT * FROM items_prices where item_id in (" .trim($ids).")");
+        $sth->execute();
+        $res = $sth->fetchAll();
 
-        if ($request->getUri()->getPath() == '/api/articles/feed') {
-            if (is_null($requestUser)) {
-                return $response->withJson([], 401);
-            }
-            $ids = $requestUser->followings->pluck('id');
-            $builder->whereIn('user_id', $ids);
+        $promoSth = $this->pdo->prepare("SELECT * FROM promo where end_date >= '".date("Y-m-d")."'");
+        $promoSth->execute();
+        $promoRes = $promoSth->fetchAll();
+        if($promoRes[0]['percent_off']>0){
+
+        }
+        if($promoRes[0]['fixed_off']>0){
+
+        }
+        print_r($promoRes);exit;
+        if(!empty($res))
+        {
+
         }
 
-        if ($author = $request->getParam('author')) {
-            $builder->whereHas('user', function ($query) use ($author) {
-                $query->where('username', $author);
-            });
-        }
 
-        if ($tag = $request->getParam('tag')) {
-            $builder->whereHas('tags', function ($query) use ($tag) {
-                $query->where('title', $tag);
-            });
-        }
 
-        if ($favoriteByUser = $request->getParam('favorited')) {
-            $builder->whereHas('favorites', function ($query) use ($favoriteByUser) {
-                $query->where('username', $favoriteByUser);
-            });
-        }
+        return $response->withJson(['articles' => $request, 'articlesCount' => $parsedBody]);
+    }
 
-        if ($limit = $request->getParam('limit')) {
-            $builder->limit($limit);
-        }
 
-        if ($offset = $request->getParam('offset')) {
-            $builder->offset($offset);
-        }
+    /**
+     * Return List of Promotions with status
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     *
+     * @return \Slim\Http\Response
+     */
+    public function promos_status(Request $request, Response $response, array $args)
+    {
+        // TODO Extract the logic of filtering articles to its own class
 
-        $articlesCount = $builder->count();
-        $articles = $builder->get();
+        $sth = $this->pdo->prepare("SELECT name,type,description,enabled FROM promo");
+        $sth->execute();
+        $res = $sth->fetchAll();
 
-        $data = $this->fractal->createData(new Collection($articles,
-            new ArticleTransformer($requestUserId)))->toArray();
 
-        return $response->withJson(['articles' => $request, 'articlesCount' => $articlesCount]);
+
+
+
+        return $response->withJson(['promos' => $res]);
     }
 
     /**

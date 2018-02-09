@@ -50,6 +50,21 @@ $(document).ready(function(){
         return hasErr;
     }
 
+    // Click event for logout link
+    $('body').on('click','.logout-link',function(){
+        jQuery.ajax({
+            type: "POST",
+            url:  basuri+"/admin/logout",
+            data: {}, // serializes the form's elements.
+            success: function(data) {
+                if(data.status===true)
+                {
+                    window.location.href = 'login';
+                }
+            }
+        });
+    });
+
     $('body').on('click','.apply-discount',function(){
         var dtid = $(this).attr('data-id');
         var enabled = $(this).attr('data-enabled');
